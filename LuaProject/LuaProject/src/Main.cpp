@@ -5,7 +5,7 @@
 
 #include "../SFML/Graphics.hpp"
 
-#include "GameGrid.h"
+#include "Game.h"
 
 int main()
 {
@@ -16,13 +16,14 @@ int main()
 
 	rw.create(sf::VideoMode(800, 800), "title", sf::Style::Close,  setting);
 
+	rw.setVerticalSyncEnabled(true);
 
 	sf::Event sfEvent;
 
 	GameGrid g;
 
 	g.init(16, 16);
-	g.setBackground("resources/background.png");
+	g.setBackground("resources/background2.png");
 
 	while (rw.isOpen())
 	{
@@ -40,7 +41,7 @@ int main()
 
 
 		rw.clear();
-
+		g.update();
 		rw.draw(g);
 
 		rw.display();

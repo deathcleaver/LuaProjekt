@@ -4,6 +4,8 @@
 #include "../SFML/Graphics.hpp"
 #include <string>
 
+#include "Map.h"
+
 class GameGrid : public sf::Drawable
 {
 
@@ -15,7 +17,14 @@ public:
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+
+	void update();
+
 private:
+
+	Map map;
+
+	float camPos;
 
 	//sf::Sprite backGround;
 	sf::RectangleShape backGround;
