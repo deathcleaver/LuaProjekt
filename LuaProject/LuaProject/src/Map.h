@@ -97,7 +97,7 @@ struct Map
 		{
 			for (Y; Y < searchRangeY; Y++)
 			{
-				if (X > -1 && X < 17 && Y > -1 && Y < maxCap)
+				if (X > -1 && X < 16 && Y > -1 && Y < count)
 				{
 					if (mapTiles[Y][X])
 					{

@@ -58,6 +58,8 @@ void GameGrid::update()
 
 	if (collision != NONE)
 		std::cout << "Collided" << std::endl;
+	else
+		std::cout << "No ze collision" << std::endl;
 
 	//std::cout << boons << std::endl;
 
