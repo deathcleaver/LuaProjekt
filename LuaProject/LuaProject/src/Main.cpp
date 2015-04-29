@@ -35,6 +35,45 @@ int main()
 		case sf::Event::Closed:
 			rw.close();
 			break;
+		case sf::Event::KeyPressed:
+			switch (sfEvent.key.code)
+			{
+			case sf::Keyboard::W:
+				g.luaManager.setKeyState('w', true);
+				break;
+			case sf::Keyboard::A:
+				g.luaManager.setKeyState('a', true);
+				break;
+			case sf::Keyboard::S:
+				g.luaManager.setKeyState('s', true);
+				break;
+			case sf::Keyboard::D:
+				g.luaManager.setKeyState('d', true);
+				break;
+			default:
+				break;
+			}
+			
+			break;
+		case sf::Event::KeyReleased:
+			switch (sfEvent.key.code)
+			{
+			case sf::Keyboard::W:
+				g.luaManager.setKeyState('w', false);
+				break;
+			case sf::Keyboard::A:
+				g.luaManager.setKeyState('a', false);
+				break;
+			case sf::Keyboard::S:
+				g.luaManager.setKeyState('s', false);
+				break;
+			case sf::Keyboard::D:
+				g.luaManager.setKeyState('d', false);
+				break;
+			default:
+				break;
+			}
+			break;
 		default:
 			break;
 		}

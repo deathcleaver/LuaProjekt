@@ -40,7 +40,7 @@ struct MapTile
 	void draw(float pos, sf::RenderTarget& target, sf::RenderStates states)
 	{
 		float thisPos = (y * 50) + 000;
-		float renderPosY = (thisPos - pos) + 400;
+		float renderPosY = (thisPos - pos) + 800;
 
 		sf::RectangleShape backGround;
 		sf::Texture bgTexture;
@@ -135,7 +135,7 @@ struct Map
 
 		int index = (camY / 50);
 
-		for (int i = index - 9; i  < index + 9; i ++)
+		for (int i = index - 16; i  < index + 1; i ++)
 		{
 			if (i >= 0 && i < count)
 			{

@@ -16,6 +16,7 @@ void GameGrid::init(int in_x, int in_y)
 	}
 
 	map.init("resources/map");
+	luaManager.load("resources/script/yolo.lua");
 
 	camPos = 0;
 
@@ -33,8 +34,18 @@ void GameGrid::setBackground(std::string texturePath)
 
 void GameGrid::update()
 {
-	camPos += 1.0f;
+	luaManager.update();
+
+	float x, y;
+
+	luaManager.getPos(x, y);
+
+	p.setPos(x, y);
+
+	camPos += 1;
 	backGround.setPosition(0, -camPos);
+
+
 }
 
 
@@ -44,6 +55,8 @@ void GameGrid::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(backGround);
 
 	map.mapDraw(camPos, target, states);
+	p.draw(target, states);
+	
 
 	/*for (size_t x = 0; x < 16; x++)
 	{

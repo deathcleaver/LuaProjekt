@@ -5,6 +5,8 @@
 #include <string>
 
 #include "Map.h"
+#include "LuaManager.h"
+#include "Player.h"
 
 class GameGrid : public sf::Drawable
 {
@@ -20,9 +22,13 @@ public:
 
 	void update();
 
+	LuaManager luaManager;
+
 private:
 
 	Map map;
+
+	Player p;
 
 	float camPos;
 
@@ -31,6 +37,7 @@ private:
 	sf::Texture bgTexture;
 
 	sf::RectangleShape grid[16][16];
+
 
 };
 
