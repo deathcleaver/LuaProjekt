@@ -97,28 +97,31 @@ struct Map
 		{
 			for (Y; Y < searchRangeY; Y++)
 			{
-				if (mapTiles[Y][X])
+				if (X > -1 && X < 17 && Y > -1 && Y < maxCap)
 				{
-					switch (mapTiles[Y][X]->mapType)
+					if (mapTiles[Y][X])
 					{
-					case(COLLISON) :
-						if (*collideMap != DAMAGE)
+						switch (mapTiles[Y][X]->mapType)
+						{
+						case(COLLISON) :
+							if (*collideMap != DAMAGE)
+								*collideMap = COLLISON;
+							break;
+						case(DAMAGE) :
 							*collideMap = COLLISON;
-						break;
-					case(DAMAGE):
-						*collideMap = COLLISON;
-						return; // return, you'll be dead anyways
-						break;
-					case(UPGRADE_SPEED) :
-						*collideSpecial = UPGRADE_SPEED;
-						delete mapTiles[Y][X];
-						mapTiles[Y][X] = 0;
-						break;
-					case(UPGRADE_TIME):
-						*collideSpecial = UPGRADE_TIME;
-						delete mapTiles[Y][X];
-						mapTiles[Y][X] = 0;
-						break;
+							return; // return, you'll be dead anyways
+							break;
+						case(UPGRADE_SPEED) :
+							*collideSpecial = UPGRADE_SPEED;
+							delete mapTiles[Y][X];
+							mapTiles[Y][X] = 0;
+							break;
+						case(UPGRADE_TIME) :
+							*collideSpecial = UPGRADE_TIME;
+							delete mapTiles[Y][X];
+							mapTiles[Y][X] = 0;
+							break;
+						}
 					}
 				}
 			}
