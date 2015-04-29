@@ -10,11 +10,13 @@ Player::Player()
 	playerCube.setTextureRect(sf::IntRect(0, 0, 40, 40));
 	playerCube.setFillColor(sf::Color::White);
 
+	collisionRect = Rect(0, 0, 0.4);
 }
 
 void Player::setPos(float x, float y)
 {
 	playerCube.setPosition(x, y);
+	collisionRect.update(x, y);
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const

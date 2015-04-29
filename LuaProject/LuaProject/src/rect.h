@@ -9,7 +9,7 @@ private:
 
 public:
 	Rect(){};
-	Rect(float x, float y, int halfsizes)
+	Rect(float x, float y, float halfsizes)
 	{
 		//code goes here
 		halfSize = halfsizes;

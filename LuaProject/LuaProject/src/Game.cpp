@@ -51,6 +51,15 @@ void GameGrid::update()
 	camPos += 1;
 	backGround.setPosition(0, -camPos);
 
+	type collision = NONE;
+	type boons = NONE;
+
+	map.mapCollide(&p.collisionRect, &collision, &boons);
+
+	if (collision != NONE)
+		std::cout << "Collided" << std::endl;
+
+	//std::cout << boons << std::endl;
 
 }
 

@@ -26,6 +26,9 @@ struct MapTile
 	type mapType;
 	Rect rect;
 	int x, y;
+	
+	sf::RectangleShape backGround;
+	sf::Texture bgTexture;
 
 	MapTile()
 	{
@@ -38,6 +41,14 @@ struct MapTile
 		y = _y;
 		rect = Rect(x + 0.5f, y + 0.5f, 0.5f);
 		mapType = _t;
+
+
+		bgTexture.loadFromFile("resources/box.png");
+		backGround.setSize(sf::Vector2f(48, 48));
+		backGround.setTexture(&bgTexture, false);
+		backGround.setTextureRect(sf::IntRect(0, 0, 50, 50));
+		backGround.setFillColor(sf::Color::White);
+
 	}
 
 	void draw(float pos, sf::RenderTarget& target, sf::RenderStates states)
@@ -45,16 +56,8 @@ struct MapTile
 		float thisPos = (y * 50) + 000;
 		float renderPosY = (thisPos - pos) + 800;
 
-		sf::RectangleShape backGround;
-		sf::Texture bgTexture;
-		
-		bgTexture.loadFromFile("resources/box.png");
 		backGround.setPosition(x * 50, renderPosY);
-		backGround.setSize(sf::Vector2f(48, 48));
-		backGround.setTexture(&bgTexture, false);
-		backGround.setTextureRect(sf::IntRect(0, 0, 50, 50));
-		backGround.setFillColor(sf::Color::White);
-		
+
 		target.draw(backGround);
 
 	}
@@ -152,21 +155,25 @@ struct Map
 					{
 						mapTiles[y][x] = new MapTile();
 						mapTiles[y][x]->init(x, y, COLLISON);
+						mapTiles[y][x]->rect = Rect(x, y, 0.5);
 					}
 					else if (line[x] == UPGRADE_SPEED)
 					{
 						mapTiles[y][x] = new MapTile();
 						mapTiles[y][x]->init(x, y, UPGRADE_SPEED);
+						mapTiles[y][x]->rect = Rect(x, y, 0.5);
 					}
 					else if (line[x] == UPGRADE_TIME)
 					{
 						mapTiles[y][x] = new MapTile();
 						mapTiles[y][x]->init(x, y, UPGRADE_TIME);
+						mapTiles[y][x]->rect = Rect(x, y, 0.5);
 					}
 					else if (line[x] == DAMAGE)
 					{
 						mapTiles[y][x] = new MapTile();
 						mapTiles[y][x]->init(x, y, DAMAGE);
+						mapTiles[y][x]->rect = Rect(x, y, 0.5);
 					}
 					else
 					{
