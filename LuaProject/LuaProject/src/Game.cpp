@@ -1,5 +1,11 @@
 #include "Game.h"
 
+GameGrid::~GameGrid()
+{
+	map.save("resources/map");
+}
+
+
 void GameGrid::init(int in_x, int in_y)
 {
 	backGround.setPosition(0, 0);

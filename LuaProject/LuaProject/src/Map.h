@@ -6,6 +6,7 @@
 #include <fstream>
 #include <sstream>
 
+#include "rect.h"
 #include "../SFML/Graphics.hpp"
 
 using namespace std;
@@ -23,6 +24,7 @@ enum type
 struct MapTile
 {
 	type mapType;
+	Rect rect;
 	int x, y;
 
 	MapTile()
@@ -34,6 +36,7 @@ struct MapTile
 	{
 		x = _x;
 		y = _y;
+		rect = Rect(x + 0.5f, y + 0.5f, 0.5f);
 		mapType = _t;
 	}
 
@@ -63,6 +66,7 @@ struct Map
 	MapTile*** mapTiles;
 	int maxCap = 500;
 	int count = 0;
+	
 	Map()
 	{
 
@@ -70,7 +74,52 @@ struct Map
 
 	~Map()
 	{
+	
+	}
+
+	void mapCollide(Rect* rekt, type* collideMap, type* collideSpecial)
+	{
+		float startX, startY, half;
+		rekt->fetchData(&startX, &startY, &half);
+		int X = (startX - half) / 50;
+		int Y = ((startY - half - 800.0f)/ 50);
+		int searchRangeX = (half * 4 + 0.5f);
+		int searchRangeY = searchRangeX + Y;
+		searchRangeX += X;
 		
+		*collideMap = NONE;
+		*collideSpecial = NONE;
+
+		for (X; X < searchRangeX; X++)
+		{
+			for (Y; Y < searchRangeY; Y++)
+			{
+				if (mapTiles[Y][X])
+				{
+					switch (mapTiles[Y][X]->mapType)
+					{
+					case(COLLISON) :
+						if (*collideMap != DAMAGE)
+							*collideMap = COLLISON;
+						break;
+					case(DAMAGE):
+						*collideMap = COLLISON;
+						return; // return, you'll be dead anyways
+						break;
+					case(UPGRADE_SPEED) :
+						*collideSpecial = UPGRADE_SPEED;
+						delete mapTiles[Y][X];
+						mapTiles[Y][X] = 0;
+						break;
+					case(UPGRADE_TIME):
+						*collideSpecial = UPGRADE_TIME;
+						delete mapTiles[Y][X];
+						mapTiles[Y][X] = 0;
+						break;
+					}
+				}
+			}
+		}
 	}
 
 	void init(string fileName)
@@ -126,7 +175,31 @@ struct Map
 				}
 			}
 		}
+	}
 
+	void save(string fileName)
+	{
+		fstream out;
+
+		out.open(fileName, std::ofstream::out | std::ofstream::trunc);
+		
+		if (out.is_open())
+		{
+			out << count << endl;
+			for (int n = 0; n < count; n++)
+			{
+				for (int k = 0; k < 16; k++)
+				{
+					if (mapTiles[n][k])
+					{
+						out << char(mapTiles[n][k]->mapType);
+					}
+					else
+						out <<char(NONE);
+				}
+				out << endl;
+			}
+		}
 	}
 
 	void mapDraw(float camY, sf::RenderTarget& target, sf::RenderStates states) const
@@ -148,6 +221,7 @@ struct Map
 		}
 
 	}
+
 };
 
 
