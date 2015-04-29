@@ -61,6 +61,8 @@ void GameGrid::update()
 
 	//std::cout << boons << std::endl;
 
+	p.setPos(x, y - camPos);
+
 }
 
 
