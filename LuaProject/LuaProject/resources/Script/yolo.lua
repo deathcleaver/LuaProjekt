@@ -26,7 +26,7 @@ end
 function update()
 
     if keyTable['w'] then
-        player['y'] = player['y'] - 2
+        player['y'] = player['y'] - 4
         --print("w down")
     end
    
@@ -41,8 +41,9 @@ function update()
     end
     
     if keyTable['d'] then
-    player['x'] = player['x'] + 2
+        player['x'] = player['x'] + 2
         --print("d down")
     end
    
+    player['y'] = player['y'] + 2;
 end
