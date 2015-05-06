@@ -90,8 +90,8 @@ struct Map
 		int X = ((startX - half) / 50);
 		int Y = ((startY - half - 800.0f)/ 50);
 		int searchRangeX = (half * 4 + 0.5f);
-		int searchRangeY = searchRangeX + Y;
-		searchRangeX += X;
+		int searchRangeY = searchRangeX + Y + 1;
+		searchRangeX += X + 1;
 		
 		*collideMap = NONE;
 		*collideSpecial = NONE;
@@ -99,9 +99,9 @@ struct Map
 		player->getPos(&px, &py);
 		player->collisionRect.updatePlayerRekt(px, py);
 
-		for (X; X < searchRangeX; X++)
+		for (X - 1; X < searchRangeX; X++)
 		{
-			for (int tempY = Y; tempY < searchRangeY; tempY++)
+			for (int tempY = Y - 1; tempY < searchRangeY; tempY++)
 			{
 				if (X > -1 && X < 16 && tempY > -1 && tempY < count)
 				{

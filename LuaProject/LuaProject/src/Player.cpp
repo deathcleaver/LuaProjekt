@@ -15,8 +15,8 @@ Player::Player()
 
 void Player::setPos(float x, float y)
 {
-	playerCube.setPosition(x, y);
-	collisionRect.update(x, y);
+	playerCube.setPosition(x -10, y -20);
+	collisionRect.updatePlayerRekt(x, y);
 	px = x;
 	py = y;
 }

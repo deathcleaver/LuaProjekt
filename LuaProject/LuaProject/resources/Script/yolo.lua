@@ -15,6 +15,16 @@ function init()
     player['lastX'] = 0
     player['lastY'] = 0
     
+	player['speedY'] = 0;
+	player['speedX'] = 0;
+	
+	player['accX'] = 1;
+	player['fricX'] = 0.5;
+	player['jump'] = -20;
+	player['grounded'] = false;
+	
+	player['grav'] = 1;
+	
 end
 
 function getPlayerPos()
@@ -31,6 +41,7 @@ function collisionX(collider, bonus)
     if collider == 51 then
         print("collision X")
         player['x'] = player['lastX']
+		player['speedX'] = 0;
     end
     
     
@@ -42,6 +53,7 @@ function collisionY(collider, bonus)
     if collider == 51 then
         print("collision Y")
         player['y'] = player['lastY']
+		player['speedY'] = 0;
     end
     
 end
@@ -51,16 +63,25 @@ function updateX()
 
     player['lastX'] = player['x']
 
+	if player['speedX'] > 0.01 then
+		 player['speedX'] = player['speedX'] - player['fricX'];
+	end
+	
+	if player['speedX'] < -0.01 then
+		 player['speedX'] = player['speedX'] + player['fricX'];
+	end
+	
     if keyTable['a'] then
-        player['x'] = player['x'] - 2
+         player['speedX'] = player['speedX'] - player['accX'];
         --print("a down")
     end
     
     if keyTable['d'] then
-        player['x'] = player['x'] + 2
+        player['speedX'] = player['speedX'] + player['accX'];
         --print("d down")
     end
    
+   player['x'] = player['x'] + player['speedX'];
     
 end
 
@@ -69,8 +90,10 @@ function updateY()
 
     player['lastY'] = player['y']
 
+	player['speedY'] = player['speedY'] + player['grav'];
+	
     if keyTable['w'] then
-        player['y'] = player['y'] - 4
+        player['speedY'] = player['jump']
         --print("w down")
     end
     
@@ -80,6 +103,6 @@ function updateY()
     end
     
    
-    player['y'] = player['y'] + 2;
+    player['y'] = player['y'] + player['speedY'];
     
 end
