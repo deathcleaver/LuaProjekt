@@ -54,7 +54,7 @@ void GameGrid::update()
 	type collision = NONE;
 	type boons = NONE;
 
-	map.mapCollide(&p.collisionRect, &collision, &boons);
+	map.mapCollide(&p, &collision, &boons);
 
 	if (collision != NONE)
 		std::cout << "Collided" << std::endl;

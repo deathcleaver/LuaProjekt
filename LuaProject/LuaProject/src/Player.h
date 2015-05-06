@@ -14,6 +14,7 @@ public:
 	~Player();
 
 	void setPos(float x, float y);
+	void getPos(float* x, float* y);
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 

@@ -5,6 +5,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include "Player.h"
 
 #include "rect.h"
 #include "../SFML/Graphics.hpp"
@@ -80,11 +81,13 @@ struct Map
 	
 	}
 
-	void mapCollide(Rect* rekt, type* collideMap, type* collideSpecial)
+	void mapCollide(Player* player, type* collideMap, type* collideSpecial)
 	{
+
 		float startX, startY, half;
-		rekt->fetchData(&startX, &startY, &half);
-		int X = (startX - half) / 50;
+		player->getPos(&startX, &startY);
+		half = 0.4;
+		int X = ((startX - half) / 50);
 		int Y = ((startY - half - 800.0f)/ 50);
 		int searchRangeX = (half * 4 + 0.5f);
 		int searchRangeY = searchRangeX + Y;
@@ -92,35 +95,42 @@ struct Map
 		
 		*collideMap = NONE;
 		*collideSpecial = NONE;
+		float px, py;
+		player->getPos(&px, &py);
+		player->collisionRect.updatePlayerRekt(px, py);
 
 		for (X; X < searchRangeX; X++)
 		{
-			for (Y; Y < searchRangeY; Y++)
+			for (int tempY = Y; tempY < searchRangeY; tempY++)
 			{
-				if (X > -1 && X < 16 && Y > -1 && Y < count)
+				if (X > -1 && X < 16 && tempY > -1 && tempY < count)
 				{
-					if (mapTiles[Y][X])
+					if (mapTiles[tempY][X])
 					{
-						switch (mapTiles[Y][X]->mapType)
+						//if collide
+						if (mapTiles[tempY][X]->rect.intersects(&(player->collisionRect)))
 						{
-						case(COLLISON) :
-							if (*collideMap != DAMAGE)
+							switch (mapTiles[tempY][X]->mapType)
+							{
+							case(COLLISON) :
+								if (*collideMap != DAMAGE)
+									*collideMap = COLLISON;
+								break;
+							case(DAMAGE) :
 								*collideMap = COLLISON;
-							break;
-						case(DAMAGE) :
-							*collideMap = COLLISON;
-							return; // return, you'll be dead anyways
-							break;
-						case(UPGRADE_SPEED) :
-							*collideSpecial = UPGRADE_SPEED;
-							delete mapTiles[Y][X];
-							mapTiles[Y][X] = 0;
-							break;
-						case(UPGRADE_TIME) :
-							*collideSpecial = UPGRADE_TIME;
-							delete mapTiles[Y][X];
-							mapTiles[Y][X] = 0;
-							break;
+								return; // return, you'll be dead anyways
+								break;
+							case(UPGRADE_SPEED) :
+								*collideSpecial = UPGRADE_SPEED;
+								delete mapTiles[tempY][X];
+								mapTiles[tempY][X] = 0;
+								break;
+							case(UPGRADE_TIME) :
+								*collideSpecial = UPGRADE_TIME;
+								delete mapTiles[tempY][X];
+								mapTiles[tempY][X] = 0;
+								break;
+							}
 						}
 					}
 				}
@@ -158,7 +168,7 @@ struct Map
 					{
 						mapTiles[y][x] = new MapTile();
 						mapTiles[y][x]->init(x, y, COLLISON);
-						mapTiles[y][x]->rect = Rect(x, y, 0.5);
+						mapTiles[y][x]->rect = Rect(x + 0.5f, y + 0.5f, 0.5f);
 					}
 					else if (line[x] == UPGRADE_SPEED)
 					{

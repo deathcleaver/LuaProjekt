@@ -23,16 +23,24 @@ public:
 		x2 = x + halfSize;
 		y2 = y + halfSize;
 	}
+	void updatePlayerRekt(float x, float y)
+	{
+		x1 = (x / 50) - halfSize;
+		y1 = ((y - 800) / 50) - halfSize;
+		x2 = x1 + halfSize * 2;
+		y2 = y1 + halfSize * 2;
+	}
+	
 	~Rect(){};
 	bool intersects(Rect* test)
 	{
-		if (y2 > test->y1)
+		if (y2 < test->y1)
 			return false; //ouside top
 		if (x2 < test->x1)
 			return false; //outside left
 		if (x1 > test->x2)
 			return false; //outside right
-		if (y1 < test->y2)
+		if (y1 > test->y2)
 			return false; //outside botom
 
 		return true;

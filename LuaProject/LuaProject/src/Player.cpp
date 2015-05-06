@@ -17,11 +17,19 @@ void Player::setPos(float x, float y)
 {
 	playerCube.setPosition(x, y);
 	collisionRect.update(x, y);
+	px = x;
+	py = y;
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(playerCube, states);
+}
+
+void Player::getPos(float* x, float* y)
+{
+	*x = px;
+	*y = py;
 }
 
 Player::~Player()
