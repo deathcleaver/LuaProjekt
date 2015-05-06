@@ -18,7 +18,10 @@ public:
 
 	void getPos(float &x, float &y);
 
-	void update();
+	void sendCollison(int collider, int bonus, bool Y);
+
+	void updateX();
+	void updateY();
 
 private:
 

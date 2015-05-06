@@ -40,7 +40,7 @@ void GameGrid::setBackground(std::string texturePath)
 
 void GameGrid::update()
 {
-	luaManager.update();
+	luaManager.updateX();
 
 	float x, y;
 
@@ -56,10 +56,17 @@ void GameGrid::update()
 
 	map.mapCollide(&p, &collision, &boons);
 
-	if (collision != NONE)
-		std::cout << "Collided" << std::endl;
-	else
-		std::cout << "No ze collision" << std::endl;
+	luaManager.sendCollison(collision, boons, false);
+
+	luaManager.updateY();
+
+	luaManager.getPos(x, y);
+
+	p.setPos(x, y);
+
+	map.mapCollide(&p, &collision, &boons);
+
+	luaManager.sendCollison(collision, boons, true);
 
 	//std::cout << boons << std::endl;
 

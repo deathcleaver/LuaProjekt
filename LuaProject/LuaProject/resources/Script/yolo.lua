@@ -12,6 +12,9 @@ function init()
     player['x'] = 400
     player['y'] = 400
     
+    player['lastX'] = 0
+    player['lastY'] = 0
+    
 end
 
 function getPlayerPos()
@@ -23,21 +26,34 @@ function setKeyState(key, state)
     keyTable[key] = state
 end
 
-function update()
+function collisionX(collider, bonus)
 
-    if keyTable['w'] then
-        player['y'] = player['y'] - 4
-        --print("w down")
+    if collider == 51 then
+        print("collision X")
+        player['x'] = player['lastX']
     end
-   
+    
+    
+    
+end
+
+function collisionY(collider, bonus)
+
+    if collider == 51 then
+        print("collision Y")
+        player['y'] = player['lastY']
+    end
+    
+end
+
+
+function updateX()
+
+    player['lastX'] = player['x']
+
     if keyTable['a'] then
         player['x'] = player['x'] - 2
         --print("a down")
-    end
-    
-    if keyTable['s'] then
-        player['y'] = player['y'] + 2
-        --print("s down")
     end
     
     if keyTable['d'] then
@@ -45,5 +61,25 @@ function update()
         --print("d down")
     end
    
+    
+end
+
+
+function updateY()
+
+    player['lastY'] = player['y']
+
+    if keyTable['w'] then
+        player['y'] = player['y'] - 4
+        --print("w down")
+    end
+    
+    if keyTable['s'] then
+        player['y'] = player['y'] + 2
+        --print("s down")
+    end
+    
+   
     player['y'] = player['y'] + 2;
+    
 end

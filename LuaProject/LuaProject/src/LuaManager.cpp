@@ -52,8 +52,26 @@ void LuaManager::getPos(float &x, float &y)
 
 }
 
-void LuaManager::update()
+void LuaManager::sendCollison(int collider, int bonus, bool Y)
 {
-	lua_getglobal(l, "update");
+	if (!Y)
+		lua_getglobal(l, "collisionX");
+	else
+		lua_getglobal(l, "collisionY");
+	
+	lua_pushinteger(l, collider);
+	lua_pushinteger(l, bonus);
+	lua_pcall(l, 2, 0, 0);
+}
+
+void LuaManager::updateX()
+{
+	lua_getglobal(l, "updateX");
+	lua_pcall(l, 0, 0, 0);
+}
+
+void LuaManager::updateY()
+{
+	lua_getglobal(l, "updateY");
 	lua_pcall(l, 0, 0, 0);
 }
