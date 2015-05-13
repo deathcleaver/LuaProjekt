@@ -77,12 +77,31 @@ int main()
 			break;
 		}
 
-		if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			int in_X, in_Y;
 			in_X = (sf::Mouse::getPosition().x - rw.getPosition().x ) / 50;
 			in_Y = (sf::Mouse::getPosition().y + g.getCampos() - 800 - rw.getPosition().y - 50 ) / 50;
-			g.rektedit(in_X, in_Y, 51);
+
+			if (sfEvent.key.code == sf::Keyboard::Num1)
+				g.rektedit(in_X, in_Y, type::UPGRADE_SPEED);
+
+			else if (sfEvent.key.code == sf::Keyboard::Num2)
+				g.rektedit(in_X, in_Y, type::UPGRADE_TIME);
+
+			else if (sfEvent.key.code == sf::Keyboard::Num3)
+				g.rektedit(in_X, in_Y, type::DAMAGE);
+
+			else
+				g.rektedit(in_X, in_Y, type::COLLISON);
+		}
+		else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+		{
+			int in_X, in_Y;
+			in_X = (sf::Mouse::getPosition().x - rw.getPosition().x) / 50;
+			in_Y = (sf::Mouse::getPosition().y + g.getCampos() - 800 - rw.getPosition().y - 50) / 50;
+
+			g.rektedit(in_X, in_Y, type::NONE);
 		}
 
 		rw.clear();
