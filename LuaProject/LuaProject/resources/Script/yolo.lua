@@ -79,6 +79,11 @@ function collisionY(collider, bonus)
 		player['speedY'] = 0;
     end
     
+    if collider == 52 then
+        init()
+        resetMap()
+    end
+    
 end
 
 function update()

@@ -27,6 +27,13 @@ int collisionCheck(lua_State* l)
 }
 
 
+int resetMap(lua_State* l)
+{
+
+
+	return 0;
+}
+
 LuaManager::LuaManager()
 {
 	l = luaL_newstate();
@@ -57,6 +64,7 @@ void LuaManager::load(std::string file)
 
 
 	lua_register(l, "checkCollision", collisionCheck);
+	lua_register(l, "resetMap", resetMap);
 
 }
 
