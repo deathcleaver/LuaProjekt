@@ -25,6 +25,10 @@ public:
 
 	LuaManager luaManager;
 
+	int getCampos();
+
+	void rektedit(int x, int y, int type);
+
 private:
 
 	Map map;
@@ -38,8 +42,6 @@ private:
 	sf::Texture bgTexture;
 
 	sf::RectangleShape grid[16][16];
-
-
 };
 
 #endif

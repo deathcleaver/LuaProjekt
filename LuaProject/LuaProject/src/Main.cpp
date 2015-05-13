@@ -78,6 +78,13 @@ int main()
 			break;
 		}
 
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			int in_X, in_Y;
+			in_X = (sf::Mouse::getPosition().x) / 50;
+			in_Y = (sf::Mouse::getPosition().y + g.getCampos()) / 50;
+			g.rektedit(in_X, in_Y, 51);
+		}
 
 		rw.clear();
 		g.update();
