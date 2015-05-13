@@ -10,8 +10,8 @@ function init()
     keyTable['d'] = false
     keyTable[13] = false -- enter key
     
-    player['x'] = 400
-    player['y'] = 400
+    player['x'] = 380
+    player['y'] = 370
     
     player['lastX'] = 0
     player['lastY'] = 0
@@ -26,16 +26,26 @@ function init()
 	
 	player['grav'] = 1;
     
-    player['camPos'] = 400;
+    player['camPos'] = 0;
     
     player['editState'] = false
+    player['pauseState'] = true
 	
 end
 
 function toggleEditState()
 
     player['editState'] = not player['editState']
+    
+    if not player['editState'] then
+        init()
+    end
 
+end
+
+function togglePauseState()
+
+    player['pauseState'] = not player['pauseState']
 end
 
 function getPlayerPos()
@@ -88,7 +98,7 @@ end
 
 function update()
 
-    if not player['editState'] then
+    if not player['editState'] and not player['pauseState'] then
         updateY()
         collider, bonus = checkCollision(player['x'], player['y'])
         collisionY(collider, bonus)
@@ -97,7 +107,8 @@ function update()
         collider, bonus = checkCollision(player['x'], player['y'])
         collisionX(collider, bonus)
         player['camPos'] = player['camPos'] + 1
-    else
+    
+    elseif player['editState'] then
     
         if keyTable['w'] then
             player['camPos'] = player['camPos'] - 3

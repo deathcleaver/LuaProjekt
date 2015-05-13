@@ -29,8 +29,7 @@ int collisionCheck(lua_State* l)
 
 int resetMap(lua_State* l)
 {
-
-
+	LuaManager::map->mapReset();
 	return 0;
 }
 
@@ -79,6 +78,12 @@ void LuaManager::setKeyState(char key, bool state)
 void LuaManager::toggleEditState()
 {
 	lua_getglobal(l, "toggleEditState");
+	lua_pcall(l, 0, 0, 0);
+}
+
+void LuaManager::togglePauseState()
+{
+	lua_getglobal(l, "togglePauseState");
 	lua_pcall(l, 0, 0, 0);
 }
 

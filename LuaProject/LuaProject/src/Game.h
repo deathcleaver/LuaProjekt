@@ -40,6 +40,10 @@ private:
 	//sf::Sprite backGround;
 	sf::RectangleShape backGround;
 	sf::Texture bgTexture;
+
+	sf::RectangleShape startGround;
+	sf::Texture startTexture;
+
 };
 
 #endif

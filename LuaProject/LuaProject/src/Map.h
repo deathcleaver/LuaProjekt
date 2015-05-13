@@ -65,10 +65,10 @@ struct MapTile
 		float thisPos = (y * 50) + 000;
 		float renderPosY = (thisPos - pos) + 800;
 
-		if (!taken)
-			backGround.setPosition(x * 50, renderPosY);
+		backGround.setPosition(x * 50, renderPosY);
 
-		target.draw(backGround);
+		if (!taken)
+			target.draw(backGround);
 
 	}
 

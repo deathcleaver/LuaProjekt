@@ -11,6 +11,14 @@ void GameGrid::init(int in_x, int in_y)
 	backGround.setPosition(0, 0);
 	backGround.setSize(sf::Vector2f(800, 8000));
 
+	startGround.setPosition(0, 0);
+	startGround.setSize(sf::Vector2f(800, 600));
+
+	startTexture.loadFromFile("resources/start.png");
+	startGround.setTexture(&startTexture, true);
+	startGround.setTextureRect(sf::IntRect(0, 0, 800, 600));
+	startGround.setFillColor(sf::Color::White);
+
 	map.init("resources/map");
 	luaManager.load("resources/script/yolo.lua");
 
@@ -47,6 +55,7 @@ void GameGrid::update()
 	luaManager.getCamPos(camPos);
 
 	backGround.setPosition(0, -camPos);
+	startGround.setPosition(0, -camPos);
 	//
 	//type collision = NONE;
 	//type boons = NONE;
@@ -75,6 +84,7 @@ void GameGrid::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	
 	target.draw(backGround);
+	target.draw(startGround);
 
 	map.mapDraw(camPos, target, states);
 	p.draw(target, states);

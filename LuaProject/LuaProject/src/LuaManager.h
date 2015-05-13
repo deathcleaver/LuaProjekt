@@ -20,6 +20,7 @@ public:
 	void getPos(float &x, float &y);
 
 	void toggleEditState();
+	void togglePauseState();
 
 	void getCamPos(float &y);
 

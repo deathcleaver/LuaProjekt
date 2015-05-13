@@ -58,6 +58,12 @@ int main()
 					editState = !editState;
 				}
 				break;
+			case sf::Keyboard::Space:
+			{
+					g.luaManager.togglePauseState();
+					editState = !editState;
+			}
+				break;
 			default:
 				break;
 			}
