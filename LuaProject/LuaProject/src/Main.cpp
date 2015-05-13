@@ -73,7 +73,6 @@ int main()
 			default:
 				break;
 			}
-			break;
 		default:
 			break;
 		}

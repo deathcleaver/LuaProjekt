@@ -3,6 +3,7 @@
 
 #include "lua.hpp"
 #include <string>
+#include "Map.h"
 
 class LuaManager
 {
@@ -20,13 +21,17 @@ public:
 
 	void sendCollison(int collider, int bonus, bool Y);
 
+	void update();
+
 	void updateX();
 	void updateY();
+
+	static Map* map;
 
 private:
 
 	lua_State* l;
-
+	
 };
 
 #endif

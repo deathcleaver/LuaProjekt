@@ -44,7 +44,15 @@ function collisionX(collider, bonus)
 		player['speedX'] = 0;
     end
     
+    if(player['x'] < 10) then
+        player['x'] = player['lastX']
+        player['speedX'] = 0;
+    end
     
+    if(player['x'] > 775) then
+        player['x'] = player['lastX']
+        player['speedX'] = 0;
+    end
     
 end
 
@@ -55,6 +63,18 @@ function collisionY(collider, bonus)
         player['y'] = player['lastY']
 		player['speedY'] = 0;
     end
+    
+end
+
+function update()
+
+    updateY()
+    collider, bonus = checkCollision(player['x'], player['y'])
+    collisionY(collider, bonus)
+
+    updateX()
+    collider, bonus = checkCollision(player['x'], player['y'])
+    collisionX(collider, bonus)
     
 end
 

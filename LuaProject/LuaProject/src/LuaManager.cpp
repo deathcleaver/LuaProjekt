@@ -1,6 +1,32 @@
 #include "LuaManager.h"
 #include <iostream>
 
+Map* LuaManager::map = NULL;
+
+int collisionCheck(lua_State* l)
+{
+
+	Player p;
+
+	float x, y;
+
+	x = lua_tonumber(l, 1);
+	y = lua_tonumber(l, 2);
+
+	p.setPos(x, y);
+
+	type collision = NONE;
+	type boons = NONE;
+
+	LuaManager::map->mapCollide(&p, &collision, &boons);
+
+	lua_pushinteger(l, collision);
+	lua_pushinteger(l, boons);
+	
+	return 2;
+}
+
+
 LuaManager::LuaManager()
 {
 	l = luaL_newstate();
@@ -28,6 +54,9 @@ void LuaManager::load(std::string file)
 
 	lua_getglobal(l, "init");
 	lua_pcall(l, 0, 0, 0);
+
+
+	lua_register(l, "checkCollision", collisionCheck);
 
 }
 
@@ -62,6 +91,12 @@ void LuaManager::sendCollison(int collider, int bonus, bool Y)
 	lua_pushinteger(l, collider);
 	lua_pushinteger(l, bonus);
 	lua_pcall(l, 2, 0, 0);
+}
+
+void LuaManager::update()
+{
+	lua_getglobal(l, "update");
+	lua_pcall(l, 0, 0, 0);
 }
 
 void LuaManager::updateX()

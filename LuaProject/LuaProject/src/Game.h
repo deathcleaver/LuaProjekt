@@ -37,9 +37,6 @@ private:
 	sf::RectangleShape backGround;
 	sf::Texture bgTexture;
 
-	sf::RectangleShape grid[16][16];
-
-
 };
 
 #endif
