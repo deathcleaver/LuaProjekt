@@ -69,7 +69,6 @@ void GameGrid::update()
 
 }
 
-
 void GameGrid::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	
@@ -86,4 +85,14 @@ void GameGrid::draw(sf::RenderTarget& target, sf::RenderStates states) const
 			target.draw(grid[x][y]);
 		}
 	}*/
+}
+
+void GameGrid::rektedit(int x, int y, int type)
+{
+	map.editRekts(x, y, type);
+}
+
+int GameGrid::getCampos()
+{
+	return camPos;
 }

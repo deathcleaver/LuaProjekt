@@ -242,6 +242,35 @@ struct Map
 
 	}
 
+	void editRekts(int x, int y, int intype)
+	{
+		if (x > -1 && y > -1 &&
+			x < 16 && y < maxCap)
+		{
+			// --- Add new lines if needed
+			int addlines = y - (count -1);
+			if (addlines > 0 && count + addlines < maxCap)
+			{
+				for (int n = 0; n < addlines; n++)
+				{
+					mapTiles[count + n] = new MapTile*[16];
+
+
+					for (int k = 0; k < 16; k++)
+					{
+						mapTiles[count + n][k] = 0;
+					}
+				}
+				count += addlines;
+			}
+
+			// --- Edit the selected tile
+			if (!mapTiles[y][x])
+				mapTiles[y][x] = new MapTile();
+
+			mapTiles[y][x]->init(x, y, type(intype));
+		}
+	}
 };
 
 
