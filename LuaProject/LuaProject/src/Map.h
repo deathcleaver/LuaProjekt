@@ -30,6 +30,7 @@ struct MapTile
 	
 	sf::RectangleShape backGround;
 	sf::Texture bgTexture;
+	bool taken;
 
 	MapTile()
 	{
@@ -55,6 +56,7 @@ struct MapTile
 		backGround.setTexture(&bgTexture, false);
 		backGround.setTextureRect(sf::IntRect(0, 0, 50, 50));
 		backGround.setFillColor(sf::Color::White);
+		taken = false;
 
 	}
 
@@ -113,6 +115,9 @@ struct Map
 				{
 					if (mapTiles[tempY][X])
 					{
+						if (mapTiles[tempY][X]->taken)
+							continue;
+
 						//if collide
 						if (mapTiles[tempY][X]->rect.intersects(&(player->collisionRect)))
 						{
@@ -123,23 +128,33 @@ struct Map
 									*collideMap = COLLISON;
 								break;
 							case(DAMAGE) :
-								*collideMap = COLLISON;
+								*collideMap = DAMAGE;
 								return; // return, you'll be dead anyways
 								break;
 							case(UPGRADE_SPEED) :
 								*collideSpecial = UPGRADE_SPEED;
-								delete mapTiles[tempY][X];
-								mapTiles[tempY][X] = 0;
+								mapTiles[tempY][X]->taken = true;
 								break;
 							case(UPGRADE_TIME) :
 								*collideSpecial = UPGRADE_TIME;
-								delete mapTiles[tempY][X];
-								mapTiles[tempY][X] = 0;
+								mapTiles[tempY][X]->taken = true;
 								break;
 							}
 						}
 					}
 				}
+			}
+		}
+	}
+
+	void mapReset()
+	{
+		for (int y = 0; y < count; y++)
+		{
+			for (int x = 0; x < 16; x++)
+			{
+				if (mapTiles[y][x])
+					mapTiles[y][x]->taken = false;
 			}
 		}
 	}
