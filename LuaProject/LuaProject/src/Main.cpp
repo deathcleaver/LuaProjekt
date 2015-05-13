@@ -25,6 +25,8 @@ int main()
 	g.init(16, 16);
 	g.setBackground("resources/background2.png");
 
+	bool editState = false;
+
 	while (rw.isOpen())
 	{
 
@@ -50,6 +52,12 @@ int main()
 			case sf::Keyboard::D:
 				g.luaManager.setKeyState('d', true);
 				break;
+			case sf::Keyboard::Return:
+				{
+					g.luaManager.toggleEditState();
+					editState = !editState;
+				}
+				break;
 			default:
 				break;
 			}
@@ -70,6 +78,8 @@ int main()
 			case sf::Keyboard::D:
 				g.luaManager.setKeyState('d', false);
 				break;
+			case sf::Keyboard::Return:
+				break;
 			default:
 				break;
 			}
@@ -77,7 +87,7 @@ int main()
 			break;
 		}
 
-		if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && editState)
 		{
 			int in_X, in_Y;
 			in_X = (sf::Mouse::getPosition().x - rw.getPosition().x ) / 50;

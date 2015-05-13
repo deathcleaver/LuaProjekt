@@ -268,6 +268,12 @@ struct Map
 			if (!mapTiles[y][x])
 				mapTiles[y][x] = new MapTile();
 
+			if (intype == type::NONE)
+			{
+				delete mapTiles[y][x];
+				mapTiles[y][x] = 0;
+			}
+			else
 			mapTiles[y][x]->init(x, y, type(intype));
 		}
 	}

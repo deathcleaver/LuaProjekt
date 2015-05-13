@@ -19,6 +19,10 @@ public:
 
 	void getPos(float &x, float &y);
 
+	void toggleEditState();
+
+	void getCamPos(float &y);
+
 	void sendCollison(int collider, int bonus, bool Y);
 
 	void update();

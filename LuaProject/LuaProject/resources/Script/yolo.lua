@@ -8,6 +8,7 @@ function init()
     keyTable['a'] = false
     keyTable['s'] = false
     keyTable['d'] = false
+    keyTable[13] = false -- enter key
     
     player['x'] = 400
     player['y'] = 400
@@ -24,12 +25,26 @@ function init()
 	player['grounded'] = false;
 	
 	player['grav'] = 1;
+    
+    player['camPos'] = 400;
+    
+    player['editState'] = false
 	
+end
+
+function toggleEditState()
+
+    player['editState'] = not player['editState']
+
 end
 
 function getPlayerPos()
 
     return player['x'], player['y']
+end
+
+function getCampos()
+    return player['camPos']
 end
 
 function setKeyState(key, state)
@@ -68,13 +83,27 @@ end
 
 function update()
 
-    updateY()
-    collider, bonus = checkCollision(player['x'], player['y'])
-    collisionY(collider, bonus)
+    if not player['editState'] then
+        updateY()
+        collider, bonus = checkCollision(player['x'], player['y'])
+        collisionY(collider, bonus)
 
-    updateX()
-    collider, bonus = checkCollision(player['x'], player['y'])
-    collisionX(collider, bonus)
+        updateX()
+        collider, bonus = checkCollision(player['x'], player['y'])
+        collisionX(collider, bonus)
+        player['camPos'] = player['camPos'] + 1
+    else
+    
+        if keyTable['w'] then
+            player['camPos'] = player['camPos'] - 3
+            --print("w down")
+        end
+        
+        if keyTable['s'] then
+            player['camPos'] = player['camPos'] + 3
+            --print("s down")
+        end
+    end
     
 end
 

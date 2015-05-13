@@ -68,6 +68,12 @@ void LuaManager::setKeyState(char key, bool state)
 	lua_pcall(l, 2, 0, 0);
 }
 
+void LuaManager::toggleEditState()
+{
+	lua_getglobal(l, "toggleEditState");
+	lua_pcall(l, 0, 0, 0);
+}
+
 void LuaManager::getPos(float &x, float &y)
 {
 
@@ -79,6 +85,16 @@ void LuaManager::getPos(float &x, float &y)
 
 	lua_pop(l, 2);
 
+}
+
+void LuaManager::getCamPos(float &y)
+{
+	lua_getglobal(l, "getCampos");
+	lua_pcall(l, 0, 1, 0);
+
+	y = lua_tonumber(l, 1);
+
+	lua_pop(l, 1);
 }
 
 void LuaManager::sendCollison(int collider, int bonus, bool Y)

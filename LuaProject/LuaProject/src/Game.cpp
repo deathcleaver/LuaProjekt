@@ -43,7 +43,9 @@ void GameGrid::update()
 	//
 	p.setPos(x, y);
 	//
-	camPos += 1;
+
+	luaManager.getCamPos(camPos);
+
 	backGround.setPosition(0, -camPos);
 	//
 	//type collision = NONE;
