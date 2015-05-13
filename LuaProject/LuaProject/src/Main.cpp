@@ -93,13 +93,13 @@ int main()
 			in_X = (sf::Mouse::getPosition().x - rw.getPosition().x ) / 50;
 			in_Y = (sf::Mouse::getPosition().y + g.getCampos() - 800 - rw.getPosition().y - 50 ) / 50;
 
-			if (sfEvent.key.code == sf::Keyboard::Num1)
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 				g.rektedit(in_X, in_Y, type::UPGRADE_SPEED);
 
-			else if (sfEvent.key.code == sf::Keyboard::Num2)
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 				g.rektedit(in_X, in_Y, type::UPGRADE_TIME);
 
-			else if (sfEvent.key.code == sf::Keyboard::Num3)
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
 				g.rektedit(in_X, in_Y, type::DAMAGE);
 
 			else

@@ -43,8 +43,14 @@ struct MapTile
 		rect = Rect(x + 0.5f, y + 0.5f, 0.5f);
 		mapType = _t;
 
-
-		bgTexture.loadFromFile("resources/box.png");
+		if (mapType == type::COLLISON)
+			bgTexture.loadFromFile("resources/box.png");
+		else if (mapType == type::DAMAGE)
+			bgTexture.loadFromFile("resources/damage.png");
+		else if (mapType == type::UPGRADE_SPEED)
+			bgTexture.loadFromFile("resources/speed.png");
+		else if (mapType == type::UPGRADE_TIME)
+			bgTexture.loadFromFile("resources/time.png");
 		backGround.setSize(sf::Vector2f(48, 48));
 		backGround.setTexture(&bgTexture, false);
 		backGround.setTextureRect(sf::IntRect(0, 0, 50, 50));
