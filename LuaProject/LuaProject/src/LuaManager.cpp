@@ -75,10 +75,16 @@ void LuaManager::setKeyState(char key, bool state)
 	lua_pcall(l, 2, 0, 0);
 }
 
-void LuaManager::toggleEditState()
+bool LuaManager::toggleEditState()
 {
 	lua_getglobal(l, "toggleEditState");
-	lua_pcall(l, 0, 0, 0);
+	lua_pcall(l, 0, 1, 0);
+	
+	bool ret = lua_toboolean(l, 1);
+
+	lua_pop(l, 1);
+
+	return ret;
 }
 
 void LuaManager::togglePauseState()

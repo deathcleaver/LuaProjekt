@@ -40,7 +40,9 @@ function toggleEditState()
     if not player['editState'] then
         init()
     end
-
+    
+    return player['editState']
+    
 end
 
 function togglePauseState()
@@ -95,6 +97,11 @@ function collisionY(collider, bonus)
     end
     
     if collider == 52 then
+        init()
+        resetMap()
+    end
+    
+    if player['y'] < player['camPos'] then
         init()
         resetMap()
     end
