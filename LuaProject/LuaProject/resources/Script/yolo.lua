@@ -28,6 +28,11 @@ function init()
     
     player['camPos'] = 0;
     
+    player['timeBonusTimer'] = 0
+    player['speedBonusTimer'] = 0
+    
+    player['camSpeed'] = 2
+    
     player['editState'] = false
     player['pauseState'] = true
 	
@@ -63,12 +68,28 @@ function setKeyState(key, state)
     keyTable[key] = state
 end
 
+function activateTime()
+    player['timeBonusTimer'] = 250
+end
+
+function activateSpeed()
+    player['speedBonusTimer'] = 250
+end
+
 function collisionX(collider, bonus)
 
     if collider == 51 then
         print("collision X")
         player['x'] = player['lastX']
 		player['speedX'] = 0;
+    end
+    
+    if(bonus == 49) then
+        activateSpeed()
+    end
+    
+    if(bonus == 50) then
+        activateTime()
     end
     
     if(player['x'] < 10) then
@@ -90,10 +111,18 @@ function collisionY(collider, bonus)
 		
 		if player['lastY'] < player['y'] then
 			player['grounded'] = true;
-		
+		end
         player['y'] = player['lastY']
 		player['speedY'] = 0;
-		end
+		
+    end
+    
+    if(bonus == 49) then
+        activateSpeed()
+    end
+    
+    if(bonus == 50) then
+        activateTime()
     end
     
     if collider == 52 then
@@ -101,7 +130,7 @@ function collisionY(collider, bonus)
         resetMap()
     end
     
-    if player['y'] < player['camPos'] then
+    if player['y'] < player['camPos'] - 100 then
         init()
         resetMap()
     end
@@ -118,7 +147,26 @@ function update()
         updateX()
         collider, bonus = checkCollision(player['x'], player['y'])
         collisionX(collider, bonus)
-        player['camPos'] = player['camPos'] + 1
+        
+        if player['y'] > player['camPos'] + 400 then
+            player['camSpeed'] = 3
+        else
+            player['camSpeed'] = 2
+        end
+        
+        if player['timeBonusTimer'] > 0 then
+            player['camSpeed'] = 1
+            player['timeBonusTimer'] = player['timeBonusTimer'] - 1
+        end
+        
+        if player['speedBonusTimer'] > 0 then
+            player['accX'] = 2
+            player['speedBonusTimer'] = player['speedBonusTimer'] - 1
+        else
+            player['accX'] = 1
+        end
+        
+        player['camPos'] = player['camPos'] + player['camSpeed']
     
     elseif player['editState'] then
     
