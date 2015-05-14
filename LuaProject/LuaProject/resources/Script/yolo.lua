@@ -85,8 +85,13 @@ function collisionY(collider, bonus)
 
     if collider == 51 then
         print("collision Y")
+		
+		if player['lastY'] < player['y'] then
+			player['grounded'] = true;
+		
         player['y'] = player['lastY']
 		player['speedY'] = 0;
+		end
     end
     
     if collider == 52 then
@@ -155,11 +160,13 @@ function updateY()
 
     player['lastY'] = player['y']
 
-	player['speedY'] = player['speedY'] + player['grav'];
+	player['speedY'] = player['speedY'] + player['grav']
 	
     if keyTable['w'] then
-        player['speedY'] = player['jump']
-        --print("w down")
+		if player['grounded'] then
+			player['speedY'] = player['jump']
+			player['grounded'] = false;
+		end
     end
     
     if keyTable['s'] then
@@ -168,6 +175,6 @@ function updateY()
     end
     
    
-    player['y'] = player['y'] + player['speedY'];
+    player['y'] = player['y'] + player['speedY']
     
 end
